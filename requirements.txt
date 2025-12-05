@@ -1,0 +1,10 @@
+fastapi
+uvicorn
+qdrant-client
+fastembed
+python-dotenv
+asyncpg
+openai-agents
+SQLAlchemy
+pydantic
+pydantic-settings
