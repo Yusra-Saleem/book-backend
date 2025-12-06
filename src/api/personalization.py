@@ -1,8 +1,8 @@
-from fastapi import APIRouter, Depends, HTTPException
+from fastapi import APIRouter, Depends
 from sqlalchemy.ext.asyncio import AsyncSession
 from src.services.content_adaptor import ContentAdaptor
 from src.models.personalization import PersonalizationRequest, PersonalizationResponse
-from src.models.user import UserInDB
+from src.models.user import User
 from src.database.connection import get_db
 
 router = APIRouter()
@@ -19,14 +19,10 @@ async def personalize(
     Creates a user profile based on user_id.
     """
     # Create a basic user profile from the request
-    user_profile = UserInDB(
+    user_profile = User(
         username=str(request.user_id),
         email=None,
         full_name=None,
-        password="",
-        software_background=None,
-        hardware_background=None,
-        hashed_password="",
     )
 
     personalized_content = await content_adaptor.personalize_content(

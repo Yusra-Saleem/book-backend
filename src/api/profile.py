@@ -1,39 +1,31 @@
-from fastapi import APIRouter, Depends, HTTPException
+from fastapi import APIRouter, Depends
 from sqlalchemy.ext.asyncio import AsyncSession
-from ..models.user import UserProfileUpdate, UserInDB
+from ..models.user import User, UserProfileUpdate
 from ..database.connection import get_db
 
 router = APIRouter()
 
-@router.get("/profile/{user_id}", response_model=UserInDB)
+@router.get("/profile/{user_id}", response_model=User)
 async def get_profile(user_id: str, db: AsyncSession = Depends(get_db)):
     """Get user profile by user_id (username)."""
     # Return a default user profile
-    return UserInDB(
+    return User(
         username=user_id,
         email=None,
         full_name=None,
-        password="",
-        software_background=None,
-        hardware_background=None,
-        hashed_password="",
     )
 
-@router.put("/profile/{user_id}", response_model=UserInDB)
+@router.put("/profile/{user_id}", response_model=User)
 async def update_profile(
     user_id: str,
     profile_update: UserProfileUpdate,
     db: AsyncSession = Depends(get_db)
 ):
-    """Update user profile (software_background, hardware_background)."""
+    """Update user profile (full_name)."""
     # Return updated user profile with the provided data
-    return UserInDB(
+    return User(
         username=user_id,
         email=None,
-        full_name=None,
-        password="",
-        software_background=profile_update.software_background,
-        hardware_background=profile_update.hardware_background,
-        hashed_password="",
+        full_name=profile_update.full_name,
     )
 
