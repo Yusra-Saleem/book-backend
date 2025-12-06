@@ -14,16 +14,12 @@ class Settings:
     QDRANT_COLLECTION_NAME: str = os.getenv("QDRANT_COLLECTION_NAME", "textbook_chunks")
     OPENAI_API_KEY: str = os.getenv("OPENAI_API_KEY", "")
     NEON_DB_URL: str = os.getenv("NEON_DB_URL", "")
-    BETTER_AUTH_API_KEY: str = os.getenv("BETTER_AUTH_API_KEY", "")
     # Allow frontend on localhost:3000 (and 127.0.0.1:3000) to talk to FastAPI on :8000
     # You can override with CORS_ORIGINS="http://localhost:3000,http://127.0.0.1:3000,https://your-domain.com"
     CORS_ORIGINS: list[str] = os.getenv(
         "CORS_ORIGINS",
         "http://localhost:3000,http://127.0.0.1:3000",
     ).split(",")
-    SECRET_KEY: str = os.getenv("SECRET_KEY", "super-secret-key")
-    ALGORITHM: str = "HS256"
-    ACCESS_TOKEN_EXPIRE_MINUTES: int = 30
 
 settings = Settings()
 

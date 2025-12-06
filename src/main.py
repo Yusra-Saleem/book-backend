@@ -1,4 +1,5 @@
 from fastapi import FastAPI
+from fastapi.middleware.cors import CORSMiddleware
 from src.core.config import settings
 from src.api.chat import router as chat_router
 from src.api.personalization import router as personalization_router
@@ -6,6 +7,15 @@ from src.api.translation import router as translation_router
 from src.api.profile import router as profile_router
 
 app = FastAPI(title=settings.PROJECT_NAME)
+
+# Configure CORS
+app.add_middleware(
+    CORSMiddleware,
+    allow_origins=settings.CORS_ORIGINS,
+    allow_credentials=True,
+    allow_methods=["*"],
+    allow_headers=["*"],
+)
 
 @app.get("/health")
 async def health_check():
